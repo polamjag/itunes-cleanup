@@ -19,14 +19,14 @@ itunes_medium = doc.xpath("/plist/dict/key[. = 'Tracks']/following-sibling::*[1]
   URI.decode URI.parse(i.text).path
 end
 
-puts "Detected #{itunes_medium.size} files from iTunes Library.xml"
+puts "Detected #{itunes_medium.size} files in iTunes Library.xml"
 
 itunes_files = []
 Dir.chdir target_path do
   itunes_files = Dir.glob("**/*.{mp3,m4a,m4v,wav,mp4,aac,aif,aiff,mov,mpg}")
 end
 
-puts "Detected #{itunes_files.size} files from iTunes Media directory"
+puts "Detected #{itunes_files.size} files in iTunes Media directory"
 
 itunes_files.map! do |i|
   i = File.join(target_path, i)
@@ -37,7 +37,7 @@ delete_target = (itunes_files - itunes_medium)
 puts "Deleting #{delete_target.size} files ..."
 
 delete_target.each_with_index do |f, i|
-  puts "  -> delete (#{i}/#{delete_target.size}): #{f}"
+  puts "  -> Delete (#{i}/#{delete_target.size}): #{f}"
   File.delete f
 end
 
