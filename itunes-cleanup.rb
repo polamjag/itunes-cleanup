@@ -11,7 +11,7 @@ example: bundle exec cleanup-itunes.rb "~/Music/iTunes/iTunes Library.xml" "~/Mu
 end
 
 itl = open(ARGV[0]).read # iTunes Library.xml
-target_path = ARGV[1]
+target_path = File.expand_path(ARGV[1])
 
 doc = Nokogiri::XML itl
 
@@ -29,7 +29,7 @@ end
 puts "Detected #{itunes_files.size} files from iTunes Media directory"
 
 itunes_files.map! do |i|
-  i = File.join(File.expand_path(target_path), i)
+  i = File.join(target_path, i)
 end
 
 delete_target = (itunes_files - itunes_medium)
